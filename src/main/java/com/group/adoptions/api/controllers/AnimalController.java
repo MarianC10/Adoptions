@@ -1,4 +1,4 @@
-package com.group.adoptions.controllers;
+package com.group.adoptions.api.controllers;
 
 import com.group.adoptions.models.Animal;
 import com.group.adoptions.repository.AnimalStore;

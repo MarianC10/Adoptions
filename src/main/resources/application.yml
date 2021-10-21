@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    username: adoptadmin
+    password: adoptadmin123
+    url: "jdbc:postgresql://localhost:5432/adoptionsdb"
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
