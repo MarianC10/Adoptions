@@ -1,10 +1,10 @@
 package com.group.adoptions.service;
 
-import com.group.adoptions.repository.cats.Cat;
+import com.group.adoptions.model.CatDTO;
+import com.group.adoptions.model.ListDTO;
+import com.group.adoptions.model.adapters.CatAdapter;
 import com.group.adoptions.repository.cats.CatRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CatService {
@@ -14,24 +14,23 @@ public class CatService {
         this.catRepository = catRepository;
     }
 
-    public void addCat(Cat cat) {
-        if (cat.getName() == null || cat.getUrl() == null) {
+    public void addCat(CatDTO catDto) {
+        if (catDto.getName() == null || catDto.getPhotoUrl() == null) {
             throw new RuntimeException("Cat must have name and url!\n");
         }
 
-        Cat catToSave = new Cat().setName(cat.getName()).setUrl(cat.getUrl());
-        catRepository.save(catToSave);
+        catRepository.save(CatAdapter.fromDto(catDto));
     }
 
-    public List<Cat> findAll() {
-        return catRepository.findAll();
+    public ListDTO<CatDTO> findAll() {
+        return new ListDTO<>(CatAdapter.toDtoList(catRepository.findAll()), catRepository.count());
     }
 
-    public Cat findByName(String name) {
+    public CatDTO findByName(String name) {
         if (name == null || name.equals("")) {
             throw new RuntimeException("Name must not be null or empty!\n");
         }
 
-        return catRepository.findByName(name);
+        return CatAdapter.toDto(catRepository.findByName(name));
     }
 }

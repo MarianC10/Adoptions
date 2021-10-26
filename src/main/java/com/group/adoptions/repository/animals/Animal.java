@@ -1,25 +1,26 @@
-package com.group.adoptions.models;
+package com.group.adoptions.repository.animals;
 
-import java.awt.desktop.SystemSleepEvent;
+import javax.persistence.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Animal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Integer id;
     protected String name;
     protected String photoUrl;
 
     public Animal() {
     }
 
-    public Animal(String name, String photoUrl) {
-        this.name = name;
-        this.photoUrl = photoUrl;
+    public Integer getId() {
+        return id;
     }
 
-    public void speak() {
-        System.out.println("Animal speaks!");
-    }
-
-    protected void walk() {
-        System.out.println("Animal walks!");
+    public Animal setId(Integer id) {
+        this.id = id;
+        return this;
     }
 
     public String getName() {
